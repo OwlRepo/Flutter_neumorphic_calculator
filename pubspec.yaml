@@ -27,6 +27,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   get: ^4.1.1
   google_fonts: ^2.0.0
+  math_expressions: ^2.1.0
   permission_handler: ^6.1.1
   vibrate: ^0.0.4
 

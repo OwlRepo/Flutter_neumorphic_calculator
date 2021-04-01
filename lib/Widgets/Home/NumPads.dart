@@ -5,6 +5,7 @@ import 'package:flutter_calculator/Data/NumPadDataList.dart';
 import 'package:flutter_calculator/Providers/EquationValue.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 class NumPads extends StatefulWidget {
   @override
@@ -14,6 +15,15 @@ class NumPads extends StatefulWidget {
 class _NumPadsState extends State<NumPads> {
   bool _isTapped = false;
   int _tappedButtonIndex = 0;
+
+  _calculateValues() {
+    Parser p = Parser();
+    Expression exp = p.parse(EquationValue.equationVal.value);
+    ContextModel cm = ContextModel();
+    double eval = exp.evaluate(EvaluationType.REAL, cm);
+    EquationValue.equationVal.value = eval.toString();
+  }
+
   @override
   Widget build(BuildContext context) {
     Color baseColor = Color(0xFFF2F2F2);
@@ -38,8 +48,16 @@ class _NumPadsState extends State<NumPads> {
                   _isTapped = !_isTapped;
                   _tappedButtonIndex = index;
                 });
-                HapticFeedback.lightImpact();
-                print(NumPadDataList.numPadData[index].symbol);
+                HapticFeedback.mediumImpact();
+                if (NumPadDataList.numPadData[index].symbol == 'C') {
+                  EquationValue.equationVal.value = '';
+                  return;
+                }
+
+                if (NumPadDataList.numPadData[index].symbol == '=') {
+                  _calculateValues();
+                  return;
+                }
                 EquationValue.equationVal.value =
                     EquationValue.equationVal.value +
                         NumPadDataList.numPadData[index].symbol;

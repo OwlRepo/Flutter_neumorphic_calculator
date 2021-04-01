@@ -1,6 +1,6 @@
 # flutter_calculator
 
-A new Flutter project.
+A new Flutter project. A calculator that implements simple neumorphic UI design.
 
 ## Getting Started
 

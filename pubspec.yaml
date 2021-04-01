@@ -25,10 +25,12 @@ dependencies:
     sdk: flutter
   clay_containers: ^0.3.2
   cupertino_icons: ^1.0.2
+  fluttertoast: ^8.0.3
   get: ^4.1.1
   google_fonts: ^2.0.0
   math_expressions: ^2.1.0
   permission_handler: ^6.1.1
+  toast: ^0.1.5
   vibrate: ^0.0.4
 
 dev_dependencies:

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_calculator/Data/NumPadDataList.dart';
 import 'package:flutter_calculator/Providers/EquationValue.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:math_expressions/math_expressions.dart';
+import 'package:toast/toast.dart';
 
 class NumPads extends StatefulWidget {
   @override
@@ -17,11 +17,17 @@ class _NumPadsState extends State<NumPads> {
   int _tappedButtonIndex = 0;
 
   _calculateValues() {
-    Parser p = Parser();
-    Expression exp = p.parse(EquationValue.equationVal.value);
-    ContextModel cm = ContextModel();
-    double eval = exp.evaluate(EvaluationType.REAL, cm);
-    EquationValue.equationVal.value = eval.toString();
+    try {
+      Parser p = Parser();
+      Expression exp = p.parse(EquationValue.equationVal.value);
+      ContextModel cm = ContextModel();
+      double eval = exp.evaluate(EvaluationType.REAL, cm);
+      EquationValue.equationVal.value = eval.toString();
+    } catch (e) {
+      Toast.show("Invalid Expression", context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+      EquationValue.equationVal.value = '';
+    }
   }
 
   @override
